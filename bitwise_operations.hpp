@@ -76,6 +76,37 @@ namespace ys
 			}
 
 		/**
+		 * 指定位置以下の全ビットを取得
+		 * @param[in]	bits	処理対象の整数
+		 * @param[in]	i	位置
+		 * @return	処理後の整数
+		 */
+		static TYPE
+		get_lower(TYPE bits,
+				  size_t i)
+			{
+				assert(i < sizeof(TYPE) * 8);
+
+				if (i == sizeof(TYPE) * 8 - 1) return ~(TYPE)0;
+				return bits & (((TYPE)1 << (i + 1)) - 1);
+			}
+
+		/**
+		 * 指定位置以上の全ビットを取得
+		 * @param[in]	bits	処理対象の整数
+		 * @param[in]	i	位置
+		 * @return	処理後の整数
+		 */
+		static TYPE
+		get_higher(TYPE bits,
+				   size_t i)
+			{
+				assert(i < sizeof(TYPE) * 8);
+
+				return bits & ~(((TYPE)1 << i) - 1);
+			}
+
+		/**
 		 * 指定位置のビットを1にする
 		 * @param[in]	bits	処理対象の整数
 		 * @param[in]	i	位置
@@ -234,7 +265,7 @@ namespace ys
 					if (!(bits & ((TYPE)1 << (i+1)))) continue;
 					bits |= (TYPE)1 << i;
 					bits &= ~((TYPE)1 << (i + 1));
-					return bits;
+					break;
 				}
 
 				return bits;
@@ -254,7 +285,7 @@ namespace ys
 					if (bits & ((TYPE)1 << (i+1))) continue;
 					bits &= ~((TYPE)1 << i);
 					bits |= (TYPE)1 << (i + 1);
-					return bits;
+					break;
 				}
 
 				return bits;

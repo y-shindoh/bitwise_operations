@@ -18,6 +18,12 @@ int main()
 	y = ys::BitwiseOperation<unsigned int>::get(x, 24);
 	ys::BitwiseOperation<unsigned int>::print(stdout, y);
 
+	y = ys::BitwiseOperation<unsigned int>::get_lower(x, 24);
+	ys::BitwiseOperation<unsigned int>::print(stdout, y);
+
+	y = ys::BitwiseOperation<unsigned int>::get_higher(x, 24);
+	ys::BitwiseOperation<unsigned int>::print(stdout, y);
+
 	y = ys::BitwiseOperation<unsigned int>::set(x, 3);
 	ys::BitwiseOperation<unsigned int>::print(stdout, y);
 
