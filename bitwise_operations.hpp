@@ -255,6 +255,7 @@ namespace ys
 		 * 1のビットの総数が等しい次に小さな整数を算出
 		 * @param[in]	bits	処理対象の整数
 		 * @return	1のビットの総数が等しい次に小さな整数
+		 * @note	算出失敗時は引数 @a bit がそのまま返却される。
 		 * @todo	もっと良い方法を考えること。
 		 */
 		static TYPE
@@ -275,6 +276,7 @@ namespace ys
 		 * 1のビットの総数が等しい次に大きな整数を算出
 		 * @param[in]	bits	処理対象の整数
 		 * @return	1のビットの総数が等しい次に大きな整数
+		 * @note	算出失敗時は引数 @a bit がそのまま返却される。
 		 * @todo	もっと良い方法を考えること。
 		 */
 		static TYPE
