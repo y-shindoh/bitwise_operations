@@ -87,8 +87,7 @@ namespace ys
 			{
 				assert(i < sizeof(TYPE) * 8);
 
-				if (i == sizeof(TYPE) * 8 - 1) return bits;
-				return bits & (((TYPE)1 << (i + 1)) - 1);
+				return bits & ~(~(TYPE)0 << i + 1);
 			}
 
 		/**
@@ -133,8 +132,7 @@ namespace ys
 			{
 				assert(i < sizeof(TYPE) * 8);
 
-				if (i == sizeof(TYPE) * 8 - 1) return ~(TYPE)0;
-				return bits | (((TYPE)1 << (i + 1)) - 1);
+				return bits | ~(~(TYPE)0 << i + 1);
 			}
 
 		/**
@@ -149,7 +147,7 @@ namespace ys
 			{
 				assert(i < sizeof(TYPE) * 8);
 
-				return bits | ~(((TYPE)1 << i) - 1);
+				return bits | ~(TYPE)0 << i;
 			}
 
 		/**
@@ -179,7 +177,7 @@ namespace ys
 			{
 				assert(i < sizeof(TYPE) * 8);
 
-				return bits & (~(TYPE)0 << (i + 1));
+				return bits & (~(TYPE)0 << i + 1);
 			}
 
 		/**
@@ -194,7 +192,7 @@ namespace ys
 			{
 				assert(i < sizeof(TYPE) * 8);
 
-				return bits & (((TYPE)1 << i) - 1);
+				return bits & ~(~(TYPE)0 << i);
 			}
 
 		/**
