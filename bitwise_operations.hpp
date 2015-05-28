@@ -255,7 +255,6 @@ namespace ys
 		 * @param[in]	bits	処理対象の整数
 		 * @return	1のビットの総数が等しい次に小さな整数
 		 * @note	算出失敗時は引数 @a bit がそのまま返却される。
-		 * @todo	もっと良い方法を考えること。
 		 */
 		static TYPE
 		previous_same_1_count(TYPE bits)
