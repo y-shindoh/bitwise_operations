@@ -179,8 +179,7 @@ namespace ys
 			{
 				assert(i < sizeof(TYPE) * 8);
 
-				if (i == sizeof(TYPE) * 8 - 1) return 0;
-				return bits & ~(((TYPE)1 << (i + 1)) - 1);
+				return bits & (~(TYPE)0 << (i + 1));
 			}
 
 		/**
@@ -261,12 +260,16 @@ namespace ys
 		static TYPE
 		previous_same_1_count(TYPE bits)
 			{
+				bool t;
+				size_t c[2] = {0, 0};
+
 				for (size_t i(0); i < sizeof(TYPE) * 8 - 1; ++i) {
-					if (bits & ((TYPE)1 << i)) continue;
-					if (!(bits & ((TYPE)1 << (i+1)))) continue;
-					bits |= (TYPE)1 << i;
-					bits &= ~((TYPE)1 << (i + 1));
-					break;
+					t = (bool)(bits & ((TYPE)1 << i));
+					if (t || !(bits & ((TYPE)1 << i + 1))) {
+						c[(size_t)t]++;
+						continue;
+					}
+					return bits - ((TYPE)1 << c[1]) - ((TYPE)1 << c[0]) + 1;
 				}
 
 				return bits;
@@ -277,17 +280,20 @@ namespace ys
 		 * @param[in]	bits	処理対象の整数
 		 * @return	1のビットの総数が等しい次に大きな整数
 		 * @note	算出失敗時は引数 @a bit がそのまま返却される。
-		 * @todo	もっと良い方法を考えること。
 		 */
 		static TYPE
 		next_same_1_count(TYPE bits)
 			{
+				bool t;
+				size_t c[2] = {0, 0};
+
 				for (size_t i(0); i < sizeof(TYPE) * 8 - 1; ++i) {
-					if (!(bits & ((TYPE)1 << i))) continue;
-					if (bits & ((TYPE)1 << (i+1))) continue;
-					bits &= ~((TYPE)1 << i);
-					bits |= (TYPE)1 << (i + 1);
-					break;
+					t = (bool)(bits & ((TYPE)1 << i));
+					if (!t || (bits & ((TYPE)1 << i + 1))) {
+						c[(size_t)t]++;
+						continue;
+					}
+					return bits + ((TYPE)1 << c[0]) + ((TYPE)1 << c[1]) - 1;
 				}
 
 				return bits;
