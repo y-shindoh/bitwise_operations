@@ -102,7 +102,7 @@ namespace ys
 			{
 				assert(i < sizeof(TYPE) * 8);
 
-				return bits & ~(((TYPE)1 << i) - 1);
+				return bits & ~(((TYPE)1 << i) - (TYPE)1);
 			}
 
 		/**
@@ -203,9 +203,7 @@ namespace ys
 		static TYPE
 		get_lowest_1(TYPE bits)
 			{
-				size_t v = (size_t)bits;
-
-				return (TYPE)v & (~(TYPE)v + 1);
+				return bits & (~bits + (TYPE)1);
 			}
 
 		/**
@@ -267,7 +265,7 @@ namespace ys
 						c[(size_t)t]++;
 						continue;
 					}
-					return bits - ((TYPE)1 << c[1]) - ((TYPE)1 << c[0]) + 1;
+					return bits - ((TYPE)1 << c[1]) - ((TYPE)1 << c[0]) + (TYPE)1;
 				}
 
 				return bits;
@@ -292,7 +290,7 @@ namespace ys
 						c[(size_t)t]++;
 						continue;
 					}
-					return bits + ((TYPE)1 << c[0]) + ((TYPE)1 << c[1]) - 1;
+					return bits + ((TYPE)1 << c[0]) + ((TYPE)1 << c[1]) - (TYPE)1;
 				}
 
 				return bits;
